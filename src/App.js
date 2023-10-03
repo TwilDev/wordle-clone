@@ -4,7 +4,7 @@ import Wordle from './pages/Wordle'
 
 const router = createBrowserRouter([
   { path: '/', element: <Welcome /> },
-  { path: '/wordle', element: <Wordle />}
+  { path: '/wordle', element: <Wordle  />}
 ])
 
 function App() {
