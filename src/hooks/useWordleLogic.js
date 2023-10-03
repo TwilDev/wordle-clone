@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-const useWordleLogic = (word) => {
-  const [guesses, setGuesses] = useState([])
+const useWordleLogic = (solution) => {
+  const [guesses, setGuesses] = useState([...Array(6)])
   const [guessCount, setGuessCount] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
   const [isCorrectGuess, setIsCorrectGuess] = useState(false)
@@ -15,7 +15,22 @@ const useWordleLogic = (word) => {
   */
   const formatGuess = (guess) => {
     console.log("Formatting Guess " + currentGuess)
-    return guess.toLowerCase().split('')
+    // Formats the guess as an array of letters comprising the guess
+    // each letter is an object with a letter, an index and a colour property to see if the letter shares an index with the word
+    // e.g. { letter: 'a', index: 0, color: grey } - letter is not in the word
+    // e.g. { letter: 'e', index: 1, color: green } - letter is in the word and in the correct position
+    // e.g. { letter: 'l', index: 2, color: yellow } - letter is in the word but not in the correct position
+    const solutionArr = solution.split('')
+    console.log(solution)
+    let formattedGuess =  guess.split('').map((letter, index) => {
+      const isCorrectLetter = solutionArr.includes(letter)
+      const isCorrectPosition = solutionArr[index] === letter
+      const color = isCorrectLetter ? isCorrectPosition ? 'green' : 'yellow' : 'grey'
+      return { letter, index, color }
+    })
+    console.log(formattedGuess)
+
+    return formattedGuess
   }
 
   /**
@@ -24,9 +39,20 @@ const useWordleLogic = (word) => {
     * 
   */
   const submitNewGuess = (guess) => {
+    // Check if guess is correct
+    if (currentGuess === solution) {
+      setIsCorrectGuess(true)
+    }
 
-    const formattedGuess = formatGuess(guess)
-    setGuesses([...guesses, formattedGuess])
+    setGuesses((prevGuesses) => {
+      const newGuesses = [...prevGuesses]
+      newGuesses[guessCount] = guess
+      return newGuesses
+    })
+
+    setGuessHistory((prevGuessHistory) => [...prevGuessHistory, currentGuess])
+    setGuessCount(() => { return guessCount + 1 })
+    setCurrentGuess('')
   }
   
   /**
@@ -51,7 +77,8 @@ const useWordleLogic = (word) => {
         return
       }
 
-      submitNewGuess(currentGuess)
+      const formattedGuess = formatGuess(currentGuess)
+      submitNewGuess(formattedGuess)
     }
 
     // Check if key is backspace

@@ -1,13 +1,16 @@
-import useWordleLogic from "../../../hooks/useWordleLogic"
 import { useEffect } from "react";
 
-function WordleGrid({ word }) {
-  const { currentGuess } = useWordleLogic(word)
+function WordleGrid({ currentGuess, word, guesses, turn }) {
+
+  useEffect(() => {
+    console.log(guesses)
+  }, [guesses, turn])
 
   return (
     <div className="wordle-grid">
       Current word is {word}
-      { currentGuess }
+      <br></br>
+      Current guess: {currentGuess}
     </div>
 
     )
