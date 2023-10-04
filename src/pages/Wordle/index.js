@@ -3,7 +3,7 @@ import useWordleLogic from "../../hooks/useWordleLogic"
 import { useEffect } from "react"
 
 function Wordle() {
-  const solution = 'wordle'
+  const solution = 'words'
   const { currentGuess, handleKeyUp, guesses, turn } = useWordleLogic(solution)
 
   useEffect(() => {
@@ -17,7 +17,10 @@ function Wordle() {
         <div className="text-center mb-4">
           <p className="text-lg font-semibold">Wordle Clone</p>
           <p className="text-sm text-gray-600">Attempts Left: </p>
-          <WordleGrid currentGuess={currentGuess} word={solution} guesses={guesses} turn={turn} />
+          Current word is {solution}
+          <br></br>
+          Current guess: {currentGuess}
+          <WordleGrid currentGuess={currentGuess} guesses={guesses} turn={turn} />
         </div>
 
       </div>

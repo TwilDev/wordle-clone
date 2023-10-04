@@ -23,7 +23,9 @@ const useWordleLogic = (solution) => {
     const solutionArr = solution.split('')
     console.log(solution)
     let formattedGuess =  guess.split('').map((letter, index) => {
-      const isCorrectLetter = solutionArr.includes(letter)
+      // const isCorrectLetter = solutionArr.includes(letter)
+      // check if letter is within the current solution and that it has not been counted already
+      const isCorrectLetter = solutionArr.includes(letter) && solutionArr.indexOf(letter) === index
       const isCorrectPosition = solutionArr[index] === letter
       const color = isCorrectLetter ? isCorrectPosition ? 'green' : 'yellow' : 'grey'
       return { letter, index, color }
@@ -66,8 +68,8 @@ const useWordleLogic = (solution) => {
 
     //Check if  key is enter
     if (key === 'Enter') {
-      if (currentGuess.length !== 6) {
-        console.log("Guess must be 6 letters")
+      if (currentGuess.length !== 5) {
+        console.log("Guess must be 5 letters")
         return
       }
 
@@ -91,7 +93,7 @@ const useWordleLogic = (solution) => {
     const letterRegex = /^[a-zA-Z]$/
 
     // if key is a letter && currentGuess is less than 6
-    if (letterRegex.test(key) && currentGuess.length < 6) {
+    if (letterRegex.test(key) && currentGuess.length < 5) {
       // add key to currentGuess
       setCurrentGuess(currentGuess + key)
     }

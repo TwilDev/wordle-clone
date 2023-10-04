@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect } from "react"
+import WordleRow from "./WordleRow"
 
-function WordleGrid({ currentGuess, word, guesses, turn }) {
+function WordleGrid({ currentGuess, guesses, turn }) {
 
   useEffect(() => {
     console.log(guesses)
@@ -8,9 +9,9 @@ function WordleGrid({ currentGuess, word, guesses, turn }) {
 
   return (
     <div className="wordle-grid">
-      Current word is {word}
-      <br></br>
-      Current guess: {currentGuess}
+      {guesses.map((guess, index) => {
+        return <WordleRow key={index} guess={guess} />
+      })}
     </div>
 
     )
