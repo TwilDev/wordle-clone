@@ -1,6 +1,6 @@
 import React from 'react'
 
-const WordleRow = ({guess}) => {
+const WordleRow = ({ guess, currentGuess}) => {
 
   const getClassName = (guess) => {
     switch (guess.color) {
@@ -15,7 +15,25 @@ const WordleRow = ({guess}) => {
     }
   }
 
-  if (guess) {
+  if (currentGuess) {
+    let letters = currentGuess.split('')
+    return (
+      <div className="text-center flex justify-center">
+        {letters.map((letter, index) => {
+          return (
+            <div key={index} className='wordle-row'>
+              {letter}
+            </div>
+          )
+        })}
+        {[Array(5 - letters.length).fill().map((_, index) => {
+          return (
+            <div key={index} className='wordle-row'></div>
+          )
+        })]}
+      </div>
+    )
+  } else if (guess) {
     return (
       <div className="text-center flex justify-center">
         {guess.map((guess, index) => {
