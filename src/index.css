@@ -18,17 +18,67 @@ code {
 
 
 .wordle-row {
-  @apply block w-[60px] h-[60px] border-solid border-[1px] border-black m-1 text-center leading-[60px] uppercase font-bold text-lg;
+  @apply block w-[60px] h-[60px] border-solid border-[1px] border-black m-1 text-center leading-[60px] uppercase font-bold text-4xl;
 }
 
 .wordle-row--yellow {
-  @apply bg-yellow-500
+  /* @apply bg-yellow-500; */
+  --background: #e2cc68;
+  --border-color: #e2cc68;
+  animation: flip-reveal .5s ease forwards;
 }
 
 .wordle-row--grey {
-  @apply bg-gray-500
+  /* @apply bg-gray-500; */
+  --background: gray;
+  --border-color: gray;
+  animation: flip-reveal .5s ease forwards;
 }
 
 .wordle-row--green {
-  @apply bg-green-500
+  /* @apply bg-green-500; */
+  --background: green;
+  --border-color: green;
+  animation: flip-reveal .5s ease forwards;
+}
+
+.wordle-row:nth-child(2) {
+  animation-delay: .2s;
+}
+
+.wordle-row:nth-child(3) {
+  animation-delay: .4s;
+}
+
+.wordle-row:nth-child(4) {
+  animation-delay: .6s;
+}
+
+.wordle-row:nth-child(5) {
+  animation-delay: .8s;
+}
+
+/* Animation */
+@keyframes flip-reveal {
+  0% {
+    transform: rotateX(0deg);
+    background: white;
+    border-color: #333;
+  }
+  45% {
+    transform: rotateX(90deg);
+    background: white;
+    border-color: #333;
+  }
+  55% {
+    transform: rotateX(90deg);
+    background: var(--background);
+    border-color: var(--border-color)
+  }
+  100% {
+    transform: rotateX(0deg);
+    background: var(--background);
+    border-color: var(--border-color);
+    color: white
+  }
 }
